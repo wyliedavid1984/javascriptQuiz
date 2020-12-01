@@ -53,4 +53,18 @@ var questionBank = [
         falseAnswers: ["For Loops", "Javascript", "Conditionals"]
     },
 ];
-var timer = 240;
+
+
+function timerCountdown() {
+var countdown = 240;
+var timer = setInterval(function () {
+    timerEl.textContent = "Timer: " + timeLeft;
+    countdown--;
+    if (countdown === 0) {
+        timerEl.textContent = "";
+        speedRead();
+        clearInterval(timer)
+    }
+}, 1000);
+// Create the countdown timer.
+}

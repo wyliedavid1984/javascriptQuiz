@@ -7,3 +7,9 @@ nav{
 .card_background{
     background-color: rgb(116, 113, 113);
 }
+.hidden{
+    display: none;
+}
+.block{
+    display: block;
+}

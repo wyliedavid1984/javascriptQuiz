@@ -25,22 +25,28 @@
         </nav>
     </header>
     <main class="py-5 pl-2">
+
         <div class="container py-5 pl-2">
-            <!-- Create a card to prompt out questions -->
-            <!-- Header for the card will be the question -->
-            <!-- Content for answers -->
-            <!-- Footer to alert Correct or Wrong -->
-            <div class="row">
+            <div class="jumbotron py-auto" id="jumbotron-dropdown">
+                <h1 class="display-4 text-center">Welcome to Javascript Beginners Quiz</h1>
+                <p class="lead text-center">This is a simple quiz to test what you've learn so far.</p>
+                <hr class="my-4">
+                <p class="text-center"><input id="startBtn" type="button" value="Begin Quiz" /></p>
+                <!-- <button id="startBtn">Begin Quiz</button> -->
+            </div>
+            <div class="row hidden" id="game-dropdown">
                 <div class="col-2"></div>
                 <div class="card col-8 card_background" style="width: 65%;">
-                    <h5 class="card-title" id="questionNum">Card title</h5>
-                    <div class="card-header" ><h4 id="theQuestion"></h4></div>
-                    <ul class="list-group list-group-flush">
+                    <h5 class="card-title text-center" id="questionNum">Card title</h5>
+                    <div class="card-header">
+                        <h4 id="theQuestion"></h4>
+                    </div>
+                    <ul class="list-group col-9 justify-content-center">
 
-                        <li class="btn border col-9" id="li1"></a>
-                        <li class="btn border col-9" id="li2"></a>
-                        <li class="btn border col-9" id="li3"></a>
-                        <li class="btn border col-9" id="li4"></a>
+                        <li class="btn border col-9" id="btn1"></li>
+                        <li class="btn border col-9" id="btn2"></li>
+                        <li class="btn border col-9" id="btn3"></li>
+                        <li class="btn border col-9" id="btn4"></li>
                     </ul>
                 </div>
             </div>

@@ -154,10 +154,6 @@ function generateQuestion() {
     answer3.textContent = questionBank[i].answers[2][1];
 
     answer4.textContent = questionBank[i].answers[3][1];
-    var ans1 = answer[0][0];
-    var ans2 = answer[1][0];
-    var ans3 = answer[2][0];
-    var ans4 = answer[4][0]
     i++
 
 }
@@ -181,5 +177,7 @@ function keepScore(score) {
 
 // It creates the game over screen with a way to log in the users score to high scores.
 function gameOver() {
+
+     document.getElementById('game-dropdown').classList.add('hidden')
 
 }

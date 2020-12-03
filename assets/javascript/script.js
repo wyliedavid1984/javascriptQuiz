@@ -102,7 +102,6 @@ var questionBank = [{
     correctAnswer: "Console logging"
 }];
 
-var body = document.body;
 var timerEl = document.getElementById("timer");
 var questionNumber = document.getElementById("questionNum");
 var theQuestion = document.getElementById("theQuestion");
@@ -115,20 +114,20 @@ var answerBtn = document.createElement("div");
 var score = 0;
 var i = 0;
 var countdown = 75;
-answer1.setAttribute("style", "display:none");
-answer2.setAttribute("style", "display:none");
-answer3.setAttribute("style", "display:none");
-answer4.setAttribute("style", "display:none");
-// appending all our new elements
 
-// why isn't this appending in the right spot
-body.appendChild(answerBtn);
+// appending all our new elements
+document.body.appendChild(answerBtn);
 answerBtn.appendChild(answers);
 answers.appendChild(answer1);
 answers.appendChild(answer2);
 answers.appendChild(answer3);
 answers.appendChild(answer4);
 
+// setting some style to hide buttons
+answer1.setAttribute("style", "display:none");
+answer2.setAttribute("style", "display:none");
+answer3.setAttribute("style", "display:none");
+answer4.setAttribute("style", "display:none");
 
 
 // Creates a timer for the user to complete the questions
@@ -230,26 +229,30 @@ var userData = {
         score: score
     };
     // if value doesn't exist in local storage then need to stringify and set to local storage.
-    
-    localStorage.setItem("userName", userName);
-    localStorage.setItem("Score", score);
- 
 
+    localStorage.setItem("userData", JSON.stringify(userData));
+    
 })
 
 function postScores(){
     var highScore = document.getElementById("highScores");
-    var userList = document.createElement("ul");
+    var userData = document.getElementById("userData");
+    // may not need the above span tag.
+    var userList = document.createElement("ol");
+    // create a for loop to create lis for data
     var user1 = document.createElement("li");
-    var user2 = document.createElement("li");
-    // check if there is data in local storage. if data is there then parse the data and build array.
-    // loop through an array to set values to 
+    
+  
     highScore.appendChild(userList);
+    // create a for loop to append data
     userList.appendChild(user1);
-    userList.appendChild(user2);
-   
-    userData.name = localStorage.getItem("userName", userName.value)
-        console.log(userName);
-    userData.score = localStorage.getItem("Score", score.value)
-        console.log(score);
+    
+
+     // check if there is data in local storage. if data is there then parse the data and build array.
+    // loop through an array to set values to 
+    var userDataList = JSON.parse(localStorage.getItem("userData"));
+    userName.textContent = userDataList.name;
+    userScore.textContent = userDataList.score;
+    
+
 }

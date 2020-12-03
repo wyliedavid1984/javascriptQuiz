@@ -112,7 +112,6 @@ var answer2 = document.createElement("button");
 var answer3 = document.createElement("button");
 var answer4 = document.createElement("button");
 var answerBtn = document.createElement("div");
-
 var score = 0;
 var i = 0;
 var countdown = 140;
@@ -131,7 +130,7 @@ answers.appendChild(answer4);
 
 // Creates a timer for the user to complete the questions
 function timerCountdown() {
-    
+
     var timer = setInterval(function () {
         timerEl.textContent = "Timer: " + countdown;
         countdown--;
@@ -164,7 +163,6 @@ function startGame() {
 
 // This function generates a question from the question bank. 
 function generateQuestion() {
-    var i = 0;
     
     if (i < questionBank.length) {
 
@@ -192,20 +190,19 @@ function generateQuestion() {
 // keeps score of the user by return the score after it has been altered, and will also alert user if the answer what correct or wrong. I then generates another question by calling generateQuestion
 
 function keepScore() {
-    var i = 0;
-    var answer = questionBank[i].correctAnswer;
     
+    var answer = questionBank[i].correctAnswer;
+
     if (this.value == answer) {
         score += 10;
-
-    } else {
-        
+    } else if (countdown > 0) {
         countdown -= 10;
+    } else {
+        gameOver();
     }
     console.log(score)
     generateQuestion();
-    
-    i++;
+
 }
 
 // It creates the game over screen with a way to log in the users score to high scores.
@@ -215,7 +212,7 @@ function gameOver() {
     document.getElementById('gameOverScreen').classList.remove('hidden');
 
     var userName = document.getElementById("userName");
-    
+
     localStorage.setItem("userName", userName);
     localStorage.setItem("Score", score);
 }

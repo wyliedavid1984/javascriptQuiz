@@ -114,8 +114,11 @@ var answer4 = document.createElement("button");
 var answerBtn = document.createElement("div");
 var score = 0;
 var i = 0;
-var countdown = 140;
-
+var countdown = 75;
+answer1.setAttribute("style", "display:none");
+answer2.setAttribute("style", "display:none");
+answer3.setAttribute("style", "display:none");
+answer4.setAttribute("style", "display:none");
 // appending all our new elements
 
 // why isn't this appending in the right spot
@@ -152,6 +155,10 @@ document.getElementById("startBtn").addEventListener("click", startGame);
 function startGame() {
     document.getElementById('beginScreen').classList.add('hidden');
     document.getElementById('gameScreen').classList.remove('hidden');
+    answer1.removeAttribute("style", "display:none");
+    answer2.removeAttribute("style", "display:none");
+    answer3.removeAttribute("style", "display:none");
+    answer4.removeAttribute("style", "display:none");
     // remember to change this back to zero. after code it completed
     // when countdown reaches zero run game over function
 
@@ -163,20 +170,20 @@ function startGame() {
 
 // This function generates a question from the question bank. 
 function generateQuestion() {
-    
-    
-        questionNumber.textContent = "Question   " + questionBank[i].number;
-        theQuestion.textContent = questionBank[i].question;
-        answer1.textContent = questionBank[i].answers[0];
-        answer1.setAttribute("value", questionBank[i].answers[0]);
-        answer2.textContent = questionBank[i].answers[1];
-        answer2.setAttribute("value", questionBank[i].answers[1]);
-        answer3.textContent = questionBank[i].answers[2];
-        answer3.setAttribute("value", questionBank[i].answers[2]);
-        answer4.textContent = questionBank[i].answers[3];
-        answer4.setAttribute("value", questionBank[i].answers[3])
-        
-     
+
+
+    questionNumber.textContent = "Question   " + questionBank[i].number;
+    theQuestion.textContent = questionBank[i].question;
+    answer1.textContent = questionBank[i].answers[0];
+    answer1.setAttribute("value", questionBank[i].answers[0]);
+    answer2.textContent = questionBank[i].answers[1];
+    answer2.setAttribute("value", questionBank[i].answers[1]);
+    answer3.textContent = questionBank[i].answers[2];
+    answer3.setAttribute("value", questionBank[i].answers[2]);
+    answer4.textContent = questionBank[i].answers[3];
+    answer4.setAttribute("value", questionBank[i].answers[3])
+
+
     answer1.addEventListener("click", keepScore);
     answer2.addEventListener("click", keepScore);
     answer3.addEventListener("click", keepScore);
@@ -186,16 +193,16 @@ function generateQuestion() {
 // keeps score of the user by return the score after it has been altered, and will also alert user if the answer what correct or wrong. I then generates another question by calling generateQuestion
 
 function keepScore() {
-    
+
     var answer = questionBank[i].correctAnswer;
-    
+
     if (this.value == answer) {
         score += 10;
     } else {
         countdown -= 10;
     }
-    if (i == questionBank.length) {
-        gameOver();
+    if (i == questionBank.length-1) {
+        return gameOver();
     }
     console.log(score)
     i++;
@@ -204,13 +211,45 @@ function keepScore() {
 }
 
 // It creates the game over screen with a way to log in the users score to high scores.
-function gameOver(event) {
-    event.preventDefault();
+function gameOver() {
+    answer1.setAttribute("style", "display:none");
+    answer2.setAttribute("style", "display:none");
+    answer3.setAttribute("style", "display:none");
+    answer4.setAttribute("style", "display:none");
     document.getElementById('gameScreen').classList.add('hidden');
     document.getElementById('gameOverScreen').classList.remove('hidden');
+    
+}
 
+document.getElementById("gameOverScreen").addEventListener("submit", function (event) {
+    event.preventDefault();
     var userName = document.getElementById("userName").value;
+    // check if data exists in local storage get data and set data to object. parse here and again
+var userData = {
+        name: userName,
+        score: score
+    };
+    // if value doesn't exist in local storage then need to stringify and set to local storage.
     
     localStorage.setItem("userName", userName);
     localStorage.setItem("Score", score);
+ 
+
+})
+
+function postScores(){
+    var highScore = document.getElementById("highScores");
+    var userList = document.createElement("ul");
+    var user1 = document.createElement("li");
+    var user2 = document.createElement("li");
+    // check if there is data in local storage. if data is there then parse the data and build array.
+    // loop through an array to set values to 
+    highScore.appendChild(userList);
+    userList.appendChild(user1);
+    userList.appendChild(user2);
+   
+    userData.name = localStorage.getItem("userName", userName.value)
+        console.log(userName);
+    userData.score = localStorage.getItem("Score", score.value)
+        console.log(score);
 }

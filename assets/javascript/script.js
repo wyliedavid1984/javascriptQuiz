@@ -106,24 +106,33 @@ var timerEl = document.getElementById("timer");
 var questionNumber = document.getElementById("questionNum");
 var theQuestion = document.getElementById("theQuestion");
 var answers = document.createElement("ul");
+// for (var j = 0; j<questionBank[i].answer.length; j++){
+//     var answer[j] = document.createElement("button");
+// }
 var answer1 = document.createElement("button");
 var answer2 = document.createElement("button");
 var answer3 = document.createElement("button");
 var answer4 = document.createElement("button");
-var answerBtn = document.createElement("div");
+var answerButtons = document.getElementById("answerBtns");
 var score = 0;
 var i = 0;
 var countdown = 75;
 
 // appending all our new elements
-document.body.appendChild(answerBtn);
-answerBtn.appendChild(answers);
+
+answerButtons.appendChild(answers);
+// for( var j = 0; j<questionBank[i].answers.length; j++){
+//      answers.appendChild(answer[i])
+// }
 answers.appendChild(answer1);
 answers.appendChild(answer2);
 answers.appendChild(answer3);
 answers.appendChild(answer4);
 
 // setting some style to hide buttons
+// for(var j=0; j<questionBank[i].answers.length; j++){
+//  answer[j].setAttribute("style", "display:none")
+// }
 answer1.setAttribute("style", "display:none");
 answer2.setAttribute("style", "display:none");
 answer3.setAttribute("style", "display:none");
@@ -153,7 +162,10 @@ document.getElementById("startBtn").addEventListener("click", startGame);
 // Starting the game by hiding the start screen and pulling up game screen
 function startGame() {
     document.getElementById('beginScreen').classList.add('hidden');
-    document.getElementById('gameScreen').classList.remove('hidden');
+    document.getElementById('quizScreen').classList.remove('hidden');
+    // for(var j=0; j<questionBank[i].answers.length; j++){
+    //  answer[j].removeAttribute("style", "display:none")
+    // }
     answer1.removeAttribute("style", "display:none");
     answer2.removeAttribute("style", "display:none");
     answer3.removeAttribute("style", "display:none");
@@ -169,24 +181,35 @@ function startGame() {
 
 // This function generates a question from the question bank. 
 function generateQuestion() {
+    // if i can get this reference to each answer then the for loop works.
+    // for(var j =0; j<questionBanki[i].answers.length; j++){
 
-
+    // answer[j].textcontent = questionBank[i].answers[j];
+    // answer[j].setAttribute("value", questionBank[i].answer[j]);
+    // answer[j].addEventListener("click", keepScore);
+    // }
     questionNumber.textContent = "Question   " + questionBank[i].number;
     theQuestion.textContent = questionBank[i].question;
+
     answer1.textContent = questionBank[i].answers[0];
     answer1.setAttribute("value", questionBank[i].answers[0]);
+    answer1.addEventListener("click", keepScore);
+
     answer2.textContent = questionBank[i].answers[1];
     answer2.setAttribute("value", questionBank[i].answers[1]);
+    answer2.addEventListener("click", keepScore);
+
     answer3.textContent = questionBank[i].answers[2];
     answer3.setAttribute("value", questionBank[i].answers[2]);
+    answer3.addEventListener("click", keepScore);
+
     answer4.textContent = questionBank[i].answers[3];
     answer4.setAttribute("value", questionBank[i].answers[3])
-
-
-    answer1.addEventListener("click", keepScore);
-    answer2.addEventListener("click", keepScore);
-    answer3.addEventListener("click", keepScore);
     answer4.addEventListener("click", keepScore);
+
+
+
+
 }
 
 // keeps score of the user by return the score after it has been altered, and will also alert user if the answer what correct or wrong. I then generates another question by calling generateQuestion
@@ -200,10 +223,11 @@ function keepScore() {
     } else {
         countdown -= 10;
     }
-    if (i == questionBank.length-1) {
+    console.log(score)
+    if (i == questionBank.length - 1) {
         return gameOver();
     }
-    console.log(score)
+    
     i++;
     generateQuestion();
 
@@ -215,44 +239,38 @@ function gameOver() {
     answer2.setAttribute("style", "display:none");
     answer3.setAttribute("style", "display:none");
     answer4.setAttribute("style", "display:none");
-    document.getElementById('gameScreen').classList.add('hidden');
-    document.getElementById('gameOverScreen').classList.remove('hidden');
-    
+    document.getElementById('quizScreen').classList.add('hidden');
+    document.getElementById('quizOverScreen').classList.remove('hidden');
+
 }
 
-document.getElementById("gameOverScreen").addEventListener("submit", function (event) {
+document.getElementById("quizOverScreen").addEventListener("submit", function (event) {
     event.preventDefault();
     var userName = document.getElementById("userName").value;
+    var highScore = document.getElementById("highScores");
+    var userData = document.getElementById("userData");
+    
+    var userList = document.createElement("ol");
+    // create a for loop to create lis for data
+    var user1 = document.createElement("li");
     // check if data exists in local storage get data and set data to object. parse here and again
-var userData = {
+    var userDataList = JSON.parse(localStorage.getItem("userData"));
+    // appending created elements
+    highScore.appendChild(userList);
+    // create a for loop to append data
+    userList.appendChild(user1);
+
+    var userData = {
         name: userName,
         score: score
     };
     // if value doesn't exist in local storage then need to stringify and set to local storage.
-
     localStorage.setItem("userData", JSON.stringify(userData));
-    
+
+
 })
 
-function postScores(){
-    var highScore = document.getElementById("highScores");
-    var userData = document.getElementById("userData");
-    // may not need the above span tag.
-    var userList = document.createElement("ol");
-    // create a for loop to create lis for data
-    var user1 = document.createElement("li");
-    
-  
-    highScore.appendChild(userList);
-    // create a for loop to append data
-    userList.appendChild(user1);
-    
-
-     // check if there is data in local storage. if data is there then parse the data and build array.
+function postScores() {
+    // check if there is data in local storage. if data is there then parse the data and build array.
     // loop through an array to set values to 
-    var userDataList = JSON.parse(localStorage.getItem("userData"));
-    userName.textContent = userDataList.name;
-    userScore.textContent = userDataList.score;
-    
-
 }

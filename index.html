@@ -25,7 +25,7 @@
         </nav>
     </header>
     <main class="py-5 pl-2">
-
+        <!-- The beginning screen -->
         <div class="container py-5 pl-2">
             <div class="jumbotron py-auto" id="beginScreen">
                 <h1 class="display-4 text-center">Welcome to Javascript Beginners Quiz</h1>
@@ -34,23 +34,24 @@
                 <p class="text-center"><input id="startBtn" type="button" value="Begin Quiz" />
                 </p>
             </div>
-            <div class="row hidden" id="gameScreen">
+            <!-- The Quiz/game Screen -->
+            <div class="row hidden" id="quizScreen">
                 <div class="col-2"></div>
                 <div class="card col-8 card_background" style="width: 65%;">
                     <h5 class="card-title text-center" id="questionNum"></h5>
-                    <div class="card-header">
+                    <div class="card-header" id="answerBtns">
                         <h4 id="theQuestion"></h4>
                     </div>
                     
                 </div>
             </div>
-            <form class="hidden" id="gameOverScreen">
+            <form class="hidden" id="quizOverScreen">
                 <div class="form-group">
                     <label for="formGroupExampleInput"></label>
                     <h4>Game Over</h4>
                     <input type="text" class="form-control" id="userName"
                         placeholder="Enter Your Initials Here">
-                        <button type="submit">Submit</button>
+                        <button type="submit" onclick="window.location.href = 'highScore.html'">Submit</button>
                 </div>
             </form>       
             

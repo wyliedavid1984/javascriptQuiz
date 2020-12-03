@@ -117,6 +117,9 @@ var answerButtons = document.getElementById("answerBtns");
 var score = 0;
 var i = 0;
 var countdown = 75;
+var userDataList = JSON.parse(localStorage.getItem("userData")) || [];
+var userList = [];
+
 
 // appending all our new elements
 if (answerButtons) {
@@ -211,9 +214,6 @@ function generateQuestion() {
     answer4.setAttribute("value", questionBank[i].answers[3])
     answer4.addEventListener("click", keepScore);
 
-
-
-
 }
 
 // keeps score of the user by return the score after it has been altered, and will also alert user if the answer what correct or wrong. I then generates another question by calling generateQuestion
@@ -258,13 +258,13 @@ function gameOver() {
 
 document.getElementById("quizOverScreen").addEventListener("submit", function (event) {
     event.preventDefault();
+
     var userName = document.getElementById("userName").value.trim();
-    var userData = {
+    var userData = [{
         name: userName,
         score: score
-    };
-    var userList = [];
-
+    }]
+    userList.push(userData);
     var userDataList = JSON.parse(localStorage.getItem("userData"));
 
     if (userDataList) {
@@ -281,26 +281,22 @@ function postScores() {
 
     var highScore = document.getElementById("highScores");
     var userList = document.createElement("ol");
-
+    
+    highScore.appendChild(userList);
 
     // loop through local storage to create each line.
-    for (var i = 0; i < )
+    for (var i = 0; i < userList.length; i++){
 
-        var user1 = document.createElement("li");
-    // check if data exists in local storage get data and set data to object. parse here and again
+        var user = document.createElement("li");
+  
+        user.textContent = userList[i];
 
+        userList.appendChild(user);
 
+    }
 
-
-    // appending created elements
-    highScore.appendChild(userList);
-    // create a for loop to append data
-    userList.appendChild(user1);
-
-
+   
     // check if there is data in local storage. if data is there then parse the data and build array.
     // loop through an array to set values to 
-    var userDataList = JSON.parse(localStorage.getItem("userData"));
-
 
 }

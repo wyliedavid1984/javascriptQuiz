@@ -164,7 +164,7 @@ function startGame() {
 // This function generates a question from the question bank. 
 function generateQuestion() {
     
-    if (i < questionBank.length) {
+    if (i <= questionBank.length) {
 
         questionNumber.textContent = "Question   " + questionBank[i].number;
         theQuestion.textContent = questionBank[i].question;
@@ -176,7 +176,7 @@ function generateQuestion() {
         answer3.setAttribute("value", questionBank[i].answers[2]);
         answer4.textContent = questionBank[i].answers[3];
         answer4.setAttribute("value", questionBank[i].answers[3])
-        i++;
+        
     } else {
         // another way to end the game.
         gameOver();
@@ -195,12 +195,13 @@ function keepScore() {
 
     if (this.value == answer) {
         score += 10;
-    } else if (countdown > 0) {
+    } else if (countdown >= 0) {
         countdown -= 10;
     } else {
         gameOver();
     }
     console.log(score)
+    i++;
     generateQuestion();
 
 }

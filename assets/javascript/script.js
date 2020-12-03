@@ -12,7 +12,7 @@ var questionBank = [{
     correctAnswer: "Alerts"
 }, {
     number: 2,
-    question: "The condition in an if statement is inclose by ____ ?",
+    question: "The condition in an if statement is enclose by ____ ?",
     answers: [
         "Curly Brackets",
         "Brackets",
@@ -164,8 +164,7 @@ function startGame() {
 // This function generates a question from the question bank. 
 function generateQuestion() {
     
-    if (i <= questionBank.length) {
-
+    
         questionNumber.textContent = "Question   " + questionBank[i].number;
         theQuestion.textContent = questionBank[i].question;
         answer1.textContent = questionBank[i].answers[0];
@@ -177,10 +176,7 @@ function generateQuestion() {
         answer4.textContent = questionBank[i].answers[3];
         answer4.setAttribute("value", questionBank[i].answers[3])
         
-    } else {
-        // another way to end the game.
-        gameOver();
-    }
+     
     answer1.addEventListener("click", keepScore);
     answer2.addEventListener("click", keepScore);
     answer3.addEventListener("click", keepScore);
@@ -192,12 +188,13 @@ function generateQuestion() {
 function keepScore() {
     
     var answer = questionBank[i].correctAnswer;
-
+    
     if (this.value == answer) {
         score += 10;
-    } else if (countdown >= 0) {
-        countdown -= 10;
     } else {
+        countdown -= 10;
+    }
+    if (i == questionBank.length) {
         gameOver();
     }
     console.log(score)
@@ -207,13 +204,13 @@ function keepScore() {
 }
 
 // It creates the game over screen with a way to log in the users score to high scores.
-function gameOver() {
-
+function gameOver(event) {
+    event.preventDefault();
     document.getElementById('gameScreen').classList.add('hidden');
     document.getElementById('gameOverScreen').classList.remove('hidden');
 
-    var userName = document.getElementById("userName");
-
+    var userName = document.getElementById("userName").value;
+    
     localStorage.setItem("userName", userName);
     localStorage.setItem("Score", score);
 }

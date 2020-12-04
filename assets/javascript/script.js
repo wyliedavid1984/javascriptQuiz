@@ -118,7 +118,7 @@ var score = 0;
 var i = 0;
 var countdown = 75;
 var userDataList = JSON.parse(localStorage.getItem("userData")) || [];
-var userList = [];
+var userArray = [];
 
 
 // appending all our new elements
@@ -268,16 +268,16 @@ document.getElementById("quizOverScreen").addEventListener("submit", function (e
         name: userName,
         score: score
     }]
-    userList.push(userData);
+    userArray.push(userData);
     var userDataList = JSON.parse(localStorage.getItem("userData"));
 
     if (userDataList) {
         userData = userDataList;
-        userList.push(userData);
+        userArray.push(userData);
     }
-console.log(userList);
+
     // if value doesn't exist in local storage then need to stringify and set to local storage.
-    localStorage.setItem("userData", JSON.stringify(userData))
+    localStorage.setItem("userData", JSON.stringify(userArray))
     postScores();
 })
 
@@ -287,16 +287,16 @@ function postScores() {
     var userList = document.createElement("ol");
 
     highScore.appendChild(userList);
-
+    console.log("hi")
     // loop through local storage to create each line.
-    for (var i = 0; i < userList.length; i++) {
+    for (var i = 0; i < userArray.length; i++) {
 
         var user = document.createElement("li");
         console.log("this should show up twice")
-        user.textContent = userList[i].name + " " + userList[i].score;
+        user.textContent = userArray[i].name + " " + userArray[i].score;
 
         userList.appendChild(user);
-        console.log(userList[i].name+ " "+ userList[i].score );
+        console.log(userArray[i].name+ " "+ userArray[i].score );
     }
 
     // check if there is data in local storage. if data is there then parse the data and build array.

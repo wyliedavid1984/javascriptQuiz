@@ -118,7 +118,7 @@ var score = 0;
 var i = 0;
 var countdown = 75;
 var userDataList = JSON.parse(localStorage.getItem("userData")) || [];
-var userList = [];
+var userArray = [];
 
 
 // appending all our new elements
@@ -191,6 +191,7 @@ function generateQuestion() {
     // dry code if i can get the rest of my application working.
     // if i can get this reference to each answer then the for loop works.
     // for(var j =0; j<questionBanki[i].answers.length; j++){
+        // var answer = answer[j];
     // answer[j].textcontent = questionBank[i].answers[j];
     // answer[j].setAttribute("value", questionBank[i].answer[j]);
     // answer[j].addEventListener("click", keepScore);
@@ -232,6 +233,7 @@ function keepScore() {
     // once question run out run game over function
     console.log(score)
     if (i == questionBank.length - 1) {
+        countdown=0;
         return gameOver();
     }
     // increment i and run generateQuestion function
@@ -258,6 +260,8 @@ function gameOver() {
 
 document.getElementById("quizOverScreen").addEventListener("submit", function (event) {
     event.preventDefault();
+    document.getElementById("quizOverScreen").classList.add("hidden");
+    document.getElementById('highScoreScreen').classList.remove("hidden");
 
     var userName = document.getElementById("userName").value.trim();
     var userData = [{
@@ -271,7 +275,7 @@ document.getElementById("quizOverScreen").addEventListener("submit", function (e
         userData = userDataList;
         userList.push(userData);
     }
-
+console.log(userList);
     // if value doesn't exist in local storage then need to stringify and set to local storage.
     localStorage.setItem("userData", JSON.stringify(userData))
     postScores();
@@ -289,10 +293,10 @@ function postScores() {
 
         var user = document.createElement("li");
 
-        user.textContent = userList[i];
+        user.textContent = userList[i].name + " " + userList[i].score;
 
         userList.appendChild(user);
-
+        console.log(userList[i].name+ " "+ userList[i].score );
     }
 
     // check if there is data in local storage. if data is there then parse the data and build array.
@@ -300,47 +304,18 @@ function postScores() {
 
 }
 
-// David Wylie 7: 47 PM
-// so in the
-// var userDataList = JSON.parse(localStorage.getItem("userData"));
-// i get what is in local storage right
-//     : bust_in_silhouette:
-//     taylorjayoungAPP 7: 47 PM
-// Yep
 
-// David Wylie 7: 48 PM
-// how do i store this value
-// var userData = [{
-//         name: userName,
-//         score: score
-//     }]: bust_in_silhouette:
-//     taylorjayoungAPP 7: 48 PM
-// You have to stringify it
-// 7: 48
-// localstorage only stores string values
-// 7: 49
-// that’ s why you use JSON.parse when you retrieve a value with getItem
-
-// David Wylie 7: 49 PM
-// is there anyway i could just talk this out or go over this in video
-// 7: 49
-// chat
-//     : bust_in_silhouette:
-//     taylorjayoungAPP 7: 50 PM
-// As LA’ s we are really only supposed to give you a path forward
-
-// David Wylie 7: 51 PM
-// I do understand that so
-// if
-// i push the current value right and then with the
-// if statement i also push up the old data
-// 7: 51
-// then i could stringify the array ?
-//     7 : 51
-// and it would store both new and old data
-// New
-//     : bust_in_silhouette:
-//     taylorjayoungAPP 7: 52 PM
-// Yep so as long as you keep in mind that the array will be stored in a string
-// 7: 52
-// Then when you run JSON.parse(localstorage.getItem… you will have an actual array again 7: 52 Then you can push your current userData 7: 53 Then run JSON.stringify(userDataList) 7: 53 and then set it in localstorage
+// Yeah it can be difficult sometimes I hear ya!
+//     8: 15
+// First thing you’ ll want to check is that userList contains the items you expect inside of the postScores
+// function -so console.log that guy out - also looks like you’ re using the same variable to create an element as the array(userList) so you’ ll want to name that something different - once you see the console log is correct then you’ ll start working to append to html-- - > Here are steps to do that
+//     8: 17
+// Inside the
+// for loop - also do a console log to test that it’ s looping through the array - and remember it’ s an object so you’ ll have to do userList[i].name and userList[i].score-- - > Once that works you can then take those items and add them together to the list element
+//         user.textContent = namedata + scoreData
+//     The variables on the right are going to be what they are actually called
+// if that makes sense
+// 8: 17
+// But long story short - add in some console logs - and make sure you’ re going into the array and then using dot notation to grab the object items(name, score)
+// 8: 17
+// You are super close!!!

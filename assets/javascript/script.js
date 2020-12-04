@@ -273,7 +273,7 @@ document.getElementById("quizOverScreen").addEventListener("submit", function (e
     }
 
     // if value doesn't exist in local storage then need to stringify and set to local storage.
-    localStorage.setItem("userData", JSON.stringify(userData), JSON.stringify(userDataList))
+    localStorage.setItem("userData", JSON.stringify(userData))
     postScores();
 })
 
@@ -281,22 +281,66 @@ function postScores() {
 
     var highScore = document.getElementById("highScores");
     var userList = document.createElement("ol");
-    
+
     highScore.appendChild(userList);
 
     // loop through local storage to create each line.
-    for (var i = 0; i < userList.length; i++){
+    for (var i = 0; i < userList.length; i++) {
 
         var user = document.createElement("li");
-  
+
         user.textContent = userList[i];
 
         userList.appendChild(user);
 
     }
 
-   
     // check if there is data in local storage. if data is there then parse the data and build array.
     // loop through an array to set values to 
 
 }
+
+// David Wylie 7: 47 PM
+// so in the
+// var userDataList = JSON.parse(localStorage.getItem("userData"));
+// i get what is in local storage right
+//     : bust_in_silhouette:
+//     taylorjayoungAPP 7: 47 PM
+// Yep
+
+// David Wylie 7: 48 PM
+// how do i store this value
+// var userData = [{
+//         name: userName,
+//         score: score
+//     }]: bust_in_silhouette:
+//     taylorjayoungAPP 7: 48 PM
+// You have to stringify it
+// 7: 48
+// localstorage only stores string values
+// 7: 49
+// that’ s why you use JSON.parse when you retrieve a value with getItem
+
+// David Wylie 7: 49 PM
+// is there anyway i could just talk this out or go over this in video
+// 7: 49
+// chat
+//     : bust_in_silhouette:
+//     taylorjayoungAPP 7: 50 PM
+// As LA’ s we are really only supposed to give you a path forward
+
+// David Wylie 7: 51 PM
+// I do understand that so
+// if
+// i push the current value right and then with the
+// if statement i also push up the old data
+// 7: 51
+// then i could stringify the array ?
+//     7 : 51
+// and it would store both new and old data
+// New
+//     : bust_in_silhouette:
+//     taylorjayoungAPP 7: 52 PM
+// Yep so as long as you keep in mind that the array will be stored in a string
+// 7: 52
+// Then when you run JSON.parse(localstorage.getItem… you will have an actual array again 7: 52 Then you can push your current userData 7: 53 Then run JSON.stringify(userDataList) 7: 53 and then set it in localstorage

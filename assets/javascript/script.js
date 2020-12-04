@@ -118,7 +118,7 @@ var score = 0;
 var i = 0;
 var countdown = 75;
 var userDataList = JSON.parse(localStorage.getItem("userData")) || [];
-var userArray = [];
+var userList = [];
 
 
 // appending all our new elements
@@ -292,7 +292,7 @@ function postScores() {
     for (var i = 0; i < userList.length; i++) {
 
         var user = document.createElement("li");
-
+        console.log("this should show up twice")
         user.textContent = userList[i].name + " " + userList[i].score;
 
         userList.appendChild(user);

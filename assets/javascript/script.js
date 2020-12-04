@@ -1,5 +1,5 @@
 // variables
-
+// I know it is bad practice, but I have code for refactoring my js included in here commented out at the moment.  When trying to use it, it actually breaks the app. I want to come back to it and refactor it so I have left them in.
 var questionBank = [{
     number: 1,
     question: "Commonly used data types do not include ____ ?",
@@ -199,6 +199,7 @@ function generateQuestion() {
     //     answer[j].setAttribute("value", questionBank[i].answer[j]);
     //     answer[j].addEventListener("click", keepScore);
     // }}
+    
     // The following sets the content to the array of answers
     // then sets the value of the button.
     // Sets the event listener for the click.
@@ -265,6 +266,7 @@ function gameOver() {
 
 document.getElementById("quizOverScreen").addEventListener("submit", function (event) {
     event.preventDefault();
+    // hiding element and show others
     document.getElementById("quizOverScreen").classList.add("hidden");
     document.getElementById('ScoreScreen').classList.remove("hidden");
     // getting the value of input, add to object, the push to user array.

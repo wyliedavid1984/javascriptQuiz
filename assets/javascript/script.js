@@ -292,11 +292,12 @@ function postScores() {
     for (var i = 0; i < userArray.length; i++) {
 
         var user = document.createElement("li");
-        console.log("this should show up twice")
-        user.textContent = userArray[i].name + " " + userArray[i].score;
+        
+        console.log(userArray);
+        user.textContent = userArray[i].name.value, userArray[i].score.value;
 
         userList.appendChild(user);
-        console.log(userArray[i].name+ " "+ userArray[i].score );
+       
     }
 
     // check if there is data in local storage. if data is there then parse the data and build array.

@@ -112,6 +112,11 @@ var answers = document.createElement("ul");
 //     answerButton.innerHTML = answer;
 //     answers.appendChild(answer);
 // }
+// questionBank[i].answerBank.foreach(function(answer){
+//      var answerBtn = document.createElement("button");
+//      answerBtn.setAttribute("value", answer);\
+//      answers.appendChild(answerBtn)
+// })
 var answer1 = document.createElement("button");
 var answer2 = document.createElement("button");
 var answer3 = document.createElement("button");
@@ -121,7 +126,16 @@ var score = 0;
 var countdown = 75;
 var userDataList = JSON.parse(localStorage.getItem("userData")) || [];
 var userArray = [];
-
+  let randomQuestion = [];
+    for (var a = 0; a<questionBank.length; a++){
+        let questionNumber = Math.floor(Math.random() * questionBank.length)
+        if (randomQuestion.length < questionBank.length) {
+            while (randomQuestion.includes(questionNumber)) {
+                questionNumber = Math.floor(Math.random() * questionBank.length);
+            };
+            randomQuestion.push(questionNumber);
+        }
+    }
 // appending all our new elements
 if (answerButtons) {
     answerButtons.appendChild(answers);
@@ -188,35 +202,48 @@ function startGame() {
 
 // This function generates a question from the question bank. 
 function generateQuestion() {
+  
+    console.log(randomQuestion)
+   let randomAnswer = [];
+    for (var b = 0; b<4; b++){
+        let answerNumber = Math.floor(Math.random()*4)
+        if(randomAnswer.length < 4){   
+            while(randomAnswer.includes(answerNumber)){
+                answerNumber = Math.floor(Math.random()*4);
+            };
+            randomAnswer.push(answerNumber);
+        }
+    };
 
-    questionNumber.textContent = "Question   " + questionBank[i].number;
-    theQuestion.textContent = questionBank[i].question;
+    // console.log(randomQuestion)
+    questionNumber.textContent = "Question   " + questionBank[randomQuestion[i]].number;
+    theQuestion.textContent = questionBank[randomQuestion[i]].question;
     // dry code if i can get the rest of my application working.
     // if i can get this reference to each answer then the for loop works.
-    // for (var j = 0; j < questionBank[i].answerBank.length; j++) {
+    // for (var j = 0; j < questionBank[randomQuestion[i]].answerBank.length; j++) {
     //     var answer = answer[j];
-    //     answer[j].textContent = questionBank[i].answer[j];
-    //     answer[j].setAttribute("value", questionBank[i].answer[j]);
+    //     answer[j].textContent = questionBank[randomQuestion[i]].answer[j];
+    //     answer[j].setAttribute("value", questionBank[randomQuestion[i]].answer[j]);
     //     answer[j].addEventListener("click", keepScore);
     // }}
-    
+ 
     // The following sets the content to the array of answers
     // then sets the value of the button.
     // Sets the event listener for the click.
-    answer1.textContent = questionBank[i].answerBank[0];
-    answer1.setAttribute("value", questionBank[i].answerBank[0]);
+    answer1.textContent = questionBank[randomQuestion[i]].answerBank[randomAnswer[0]];
+    answer1.setAttribute("value", questionBank[randomQuestion[i]].answerBank[randomAnswer[0]]);
     answer1.addEventListener("click", keepScore);
 
-    answer2.textContent = questionBank[i].answerBank[1];
-    answer2.setAttribute("value", questionBank[i].answerBank[1]);
+    answer2.textContent = questionBank[randomQuestion[i]].answerBank[randomAnswer[1]];
+    answer2.setAttribute("value", questionBank[randomQuestion[i]].answerBank[randomAnswer[1]]);
     answer2.addEventListener("click", keepScore);
 
-    answer3.textContent = questionBank[i].answerBank[2];
-    answer3.setAttribute("value", questionBank[i].answerBank[2]);
+    answer3.textContent = questionBank[randomQuestion[i]].answerBank[randomAnswer[2]];
+    answer3.setAttribute("value", questionBank[randomQuestion[i]].answerBank[randomAnswer[2]]);
     answer3.addEventListener("click", keepScore);
 
-    answer4.textContent = questionBank[i].answerBank[3];
-    answer4.setAttribute("value", questionBank[i].answerBank[3])
+    answer4.textContent = questionBank[randomQuestion[i]].answerBank[randomAnswer[3]];
+    answer4.setAttribute("value", questionBank[randomQuestion[i]].answerBank[randomAnswer[3]])
     answer4.addEventListener("click", keepScore);
 
 }
@@ -226,7 +253,7 @@ function generateQuestion() {
 function keepScore() {
     // sets answer to correct answer.
 
-    var answer = questionBank[i].correctAnswer;
+    var answer = questionBank[randomQuestion[i]].correctAnswer;
 
     // checking if correct answer if selected and incrementing score
     // else decrement the count down. 
